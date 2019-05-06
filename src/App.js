@@ -1,26 +1,36 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useReducer } from 'react'
+
+const fetchAllProducts = async dispatch =>
+  await fetch('http://localhost:3000/products')
+    .then(response => response.json())
+    .then(json =>
+      dispatch({ type: 'UPDATE_PRODUCTS', payload: JSON.stringify(json) })
+    )
+    .catch(error => console.log(error))
+
+const reducer = (state, action) => {
+  switch (action.type) {
+    case 'UPDATE_PRODUCTS':
+      return state
+    default:
+      return state
+  }
+}
+const ProductList = () => {
+  const [data, dispatch] = useReducer(reducer, [])
+  useEffect(() => {
+    fetchAllProducts(dispatch)
+  }, [])
+
+  return <div>{console.log(data.products)}</div>
+}
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <ProductList />
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
