@@ -4,7 +4,13 @@ import axios from 'axios'
 
 export const StoreContext = createContext({})
 
-const initialState = {}
+const initialState = {
+  // loggedIn: {
+  //   message: 'Auth successful',
+  //   token:
+  //     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6I…0NDZ9.c-N78JQHr4ltoRG9cveHspUUrtzJpb6yBOV4LrhGQZg'
+  // }
+}
 
 const reducer = (state, { type, payload }) => {
   switch (type) {
@@ -31,7 +37,7 @@ const Store = ({ children }) => {
         )
         .catch(error => console.log('Error fetching all_products'))
     }
-    getAllProducts(dispatch)
+    getAllProducts()
   }, [])
 
   const submitLogin = credentials => {
@@ -60,30 +66,10 @@ const Store = ({ children }) => {
     logIn()
   }
 
-  const getAllOrders = async () => {
-    if (state.loggedIn.token) {
-      await axios({
-        method: 'get',
-        url: 'http://localhost:3000/orders/',
-        mode: 'no-cors',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-          Authorization: `Bearer ${state.loggedIn.token}`
-        }
-      })
-        .then(response => {
-          if (response.status === 200) {
-            dispatch({ type: GET_ALL_ORDERS, payload: response.data })
-          }
-        })
-        .catch(error => console.log('Error getting all orders', error))
-    }
-  }
-
   console.log('STORE: ', state)
 
   return (
-    <StoreContext.Provider value={[state, dispatch, submitLogin, getAllOrders]}>
+    <StoreContext.Provider value={{ state, dispatch, submitLogin }}>
       {children}
     </StoreContext.Provider>
   )

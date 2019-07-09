@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react'
 import { Button } from 'simple-react-toolkit'
 import styled from 'styled-components'
 import { StoreContext } from '../Config/Store'
-import { SIGN_IN } from '../Config/Constants'
+import { withRouter } from 'react-router-dom'
 
 export const Container = styled.form`
   background: lightblue;
@@ -41,28 +41,27 @@ export const StyledTextInput = styled.input`
   }
 `
 
-export function SignIn() {
+export function SignIn({ history }) {
+  const { submitLogin } = useContext(StoreContext)
+
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
-  // eslint-disable-next-line no-unused-vars
-  const [state, dispatch, submitLogin, getAllOrders] = useContext(StoreContext)
-
   const handleSubmit = event => {
     event.preventDefault()
+
     const credentials = {
       email,
       password
     }
 
     submitLogin(credentials)
-
-    setEmail('')
-    setPassword('')
+    history.push('/products/')
   }
 
   return (
     <>
+      <h1>Sign In Page</h1>
       <Container onSubmit={e => handleSubmit(e)}>
         <StyledTextInput
           inputColor={'#4186F4'}
@@ -82,9 +81,8 @@ export function SignIn() {
         />
         <Button type='submit'>Submit</Button>
       </Container>
-      <button onClick={getAllOrders}>orders</button>
     </>
   )
 }
 
-export default SignIn
+export default withRouter(SignIn)
