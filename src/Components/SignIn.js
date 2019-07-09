@@ -1,36 +1,90 @@
-import React from 'react'
+import React, { useState, useContext } from 'react'
+import { Button } from 'simple-react-toolkit'
+import styled from 'styled-components'
+import { StoreContext } from '../Config/Store'
+import { SIGN_IN } from '../Config/Constants'
 
-export default function SignIn() {
-  const [email, setEmail] = React.useState('')
-  const [password, setPassword] = React.useState('')
+export const Container = styled.form`
+  background: lightblue;
+  width: 400px;
+  height: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+`
 
-  const handleClick = e => {
-    e.preventDefault()
-    const obj = {
+export const StyledTextInput = styled.input`
+  font-size: 1.5rem;
+  margin: 5px;
+  font-family: inherit;
+  color: inherit;
+  padding: 1.5rem 2rem;
+  border-radius: 2px;
+  background-color: rgba(255, 255, 255, 0.5);
+  border: none;
+  border-bottom: 3px solid transparent;
+  width: ${props => props.inputWidth || '100%'};
+  display: border-box;
+  transition: all 0.3s;
+  :focus {
+    outline: none;
+    box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.1);
+    border-bottom: 3px solid #55c57a;
+    border-color: ${props => props.inputColor || '#55c57a'};
+  }
+  ::-webkit-input-placeholder {
+    color: #999;
+  }
+  :focus:invalid {
+    border-bottom: 3px solid #ff7730;
+  }
+`
+
+export function SignIn() {
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+
+  // eslint-disable-next-line no-unused-vars
+  const [state, dispatch, submitLogin, getAllOrders] = useContext(StoreContext)
+
+  const handleSubmit = event => {
+    event.preventDefault()
+    const credentials = {
       email,
       password
     }
-    console.log(obj)
+
+    submitLogin(credentials)
+
+    setEmail('')
+    setPassword('')
   }
 
   return (
-    <div>
-      <h1>SignIn</h1>
-      <form onSubmit={handleClick}>
-        <input
-          type='text'
-          value={email}
+    <>
+      <Container onSubmit={e => handleSubmit(e)}>
+        <StyledTextInput
+          inputColor={'#4186F4'}
+          inputWidth={'300px'}
+          placeholder={'enter email address'}
           onChange={e => setEmail(e.target.value)}
-          placeholder='email'
+          value={email}
+          required
         />
-        <input
-          type='text'
-          value={password}
+        <StyledTextInput
+          inputColor={'#4186F4'}
+          inputWidth={'300px'}
+          placeholder={'enter password'}
           onChange={e => setPassword(e.target.value)}
-          placeholder='password'
+          value={password}
+          required
         />
-        <button type='submit'>LOG IN</button>
-      </form>
-    </div>
+        <Button type='submit'>Submit</Button>
+      </Container>
+      <button onClick={getAllOrders}>orders</button>
+    </>
   )
 }
+
+export default SignIn
