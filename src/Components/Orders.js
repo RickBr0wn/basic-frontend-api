@@ -4,6 +4,7 @@ import { withRouter } from 'react-router-dom'
 import { GET_ALL_ORDERS } from '../Config/Constants'
 import axios from 'axios'
 import LineItem from './LineItem'
+import { StyledContainer } from '../StyledComponents/StyledContainer'
 
 const Orders = ({ history }) => {
   const { state, dispatch } = React.useContext(StoreContext)
@@ -38,13 +39,13 @@ const Orders = ({ history }) => {
   }
 
   return (
-    <div>
+    <StyledContainer>
       <h1>The Orders Page</h1>
       {state.orders &&
         state.orders.orders.map(order => (
           <LineItem key={order._id} item={order} />
         ))}
-    </div>
+    </StyledContainer>
   )
 }
 

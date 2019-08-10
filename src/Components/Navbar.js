@@ -1,16 +1,29 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { StoreContext } from '../Config/Store'
+import { StyledNavbar } from '../StyledComponents/StyledNavbar'
 
 const Navbar = () => {
   const { state } = React.useContext(StoreContext)
   return (
-    <nav>
+    <StyledNavbar>
+      <h1>
+        <Link to='/'>Random Company Inc</Link>
+      </h1>
       <ul>
         <li>
           <Link to='/'>Home</Link>
         </li>
-        {state.loggedIn ? null : (
+        {state.loggedIn.token ? (
+          <>
+            <li>
+              <Link to='/orders/'>Orders</Link>
+            </li>
+            <li>
+              <Link to='/add-product/'>Add New Product</Link>
+            </li>
+          </>
+        ) : (
           <li>
             <Link to='/sign-in/'>Sign In</Link>
           </li>
@@ -18,18 +31,8 @@ const Navbar = () => {
         <li>
           <Link to='/products/'>Products</Link>
         </li>
-        {state.loggedIn ? (
-          <li>
-            <Link to='/orders/'>Orders</Link>
-          </li>
-        ) : null}
-        {state.loggedIn ? (
-          <li>
-            <Link to='/add-product/'>Add New Product</Link>
-          </li>
-        ) : null}
       </ul>
-    </nav>
+    </StyledNavbar>
   )
 }
 

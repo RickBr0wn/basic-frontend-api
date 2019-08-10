@@ -5,11 +5,10 @@ import axios from 'axios'
 export const StoreContext = createContext({})
 
 const initialState = {
-  // loggedIn: {
-  //   message: 'Auth successful',
-  //   token:
-  //     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6I…0NDZ9.c-N78JQHr4ltoRG9cveHspUUrtzJpb6yBOV4LrhGQZg'
-  // }
+  loggedIn: {
+    message: 'Not logged in!',
+    token: null
+  }
 }
 
 const reducer = (state, { type, payload }) => {
@@ -40,9 +39,7 @@ const Store = ({ children }) => {
     getAllProducts()
   }, [])
 
-  const submitLogin = credentials => {
-    const { email, password } = credentials
-
+  const submitLogin = (history, { email, password }) => {
     const logIn = async () => {
       await axios({
         method: 'post',
@@ -59,6 +56,7 @@ const Store = ({ children }) => {
                 token: response.data.token
               }
             })
+            history.push('/products/')
           }
         })
         .catch(error => console.log('Error signing in'))

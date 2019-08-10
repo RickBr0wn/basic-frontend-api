@@ -1,10 +1,11 @@
 import React from 'react'
+import { StyledContainer } from '../StyledComponents/StyledContainer'
 
 const Home = () => {
   return (
-    <div>
+    <StyledContainer>
       <h1>The Home Page</h1>
-    </div>
+    </StyledContainer>
   )
 }
 
