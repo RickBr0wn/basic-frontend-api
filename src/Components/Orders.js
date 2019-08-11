@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom'
 import { GET_ALL_ORDERS } from '../Config/Constants'
 import axios from 'axios'
 import LineItem from './LineItem'
-import { StyledContainer } from '../StyledComponents/StyledContainer'
+import { StyledContainer } from '../StyledComponents'
 
 const Orders = ({ history }) => {
   const { state, dispatch } = React.useContext(StoreContext)

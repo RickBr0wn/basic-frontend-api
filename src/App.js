@@ -7,16 +7,7 @@ import Products from './Components/Products'
 import Orders from './Components/Orders'
 import AddProduct from './Components/AddProduct'
 import { CssReset } from 'simple-react-toolkit'
-import styled from 'styled-components'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
-
-export const BodyContainer = styled.div`
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`
 
 export default function App() {
   return (

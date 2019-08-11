@@ -1,7 +1,7 @@
 import React from 'react'
 import { StoreContext } from '../Config/Store'
 import LineItem from './LineItem'
-import { StyledContainer } from '../StyledComponents/StyledContainer'
+import { StyledContainer } from '../StyledComponents'
 
 const Products = () => {
   const { state } = React.useContext(StoreContext)

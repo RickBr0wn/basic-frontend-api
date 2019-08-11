@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { StoreContext } from '../Config/Store'
-import { StyledNavbar } from '../StyledComponents/StyledNavbar'
+import { StyledNavbar } from '../StyledComponents'
 
 const Navbar = () => {
   const { state } = React.useContext(StoreContext)

@@ -2,9 +2,11 @@ import React, { useState, useContext } from 'react'
 import { Button } from 'simple-react-toolkit'
 import { StoreContext } from '../Config/Store'
 import { withRouter } from 'react-router-dom'
-import { StyledContainer } from '../StyledComponents/StyledContainer'
-import { StyledTextInput } from '../StyledComponents/StyledTextInput'
-import { StyledSignIn } from '../StyledComponents/StyledSignIn'
+import {
+  StyledContainer,
+  StyledTextInput,
+  StyledSignIn
+} from '../StyledComponents'
 
 export function SignIn({ history }) {
   const { submitLogin } = useContext(StoreContext)
@@ -14,7 +16,6 @@ export function SignIn({ history }) {
 
   return (
     <StyledContainer>
-      <h1>Sign In Page</h1>
       <StyledSignIn
         onSubmit={e => {
           e.preventDefault()
@@ -23,6 +24,7 @@ export function SignIn({ history }) {
             password
           })
         }}>
+        <h1>Sign In Page</h1>
         <StyledTextInput
           inputColor={'#4186F4'}
           inputWidth={'300px'}

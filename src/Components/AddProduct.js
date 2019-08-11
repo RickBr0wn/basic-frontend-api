@@ -1,9 +1,8 @@
 import React from 'react'
 import axios from 'axios'
 import { StoreContext } from '../Config/Store'
-import { StyledContainer } from '../StyledComponents/StyledContainer'
-import { StyledTextInput } from '../StyledComponents/StyledTextInput'
 import { Button } from 'simple-react-toolkit'
+import { StyledContainer, StyledTextInput } from '../StyledComponents'
 
 /**
  @route   POST /products/

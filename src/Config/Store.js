@@ -34,6 +34,7 @@ const Store = ({ children }) => {
         .then(response =>
           dispatch({ type: GET_PRODUCTS, payload: response.data })
         )
+
         .catch(error => console.log('Error fetching all_products'))
     }
     getAllProducts()
@@ -56,6 +57,7 @@ const Store = ({ children }) => {
                 token: response.data.token
               }
             })
+            localStorage.setItem('token', response.data.token)
             history.push('/products/')
           }
         })

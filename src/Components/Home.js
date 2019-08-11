@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyledContainer } from '../StyledComponents/StyledContainer'
+import { StyledContainer } from '../StyledComponents'
 
 const Home = () => {
   return (
