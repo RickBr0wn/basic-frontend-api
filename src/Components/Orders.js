@@ -8,17 +8,18 @@ import { StyledContainer } from '../StyledComponents'
 
 const Orders = ({ history }) => {
   const { state, dispatch } = React.useContext(StoreContext)
+  const { token } = state.loggedIn
 
   React.useEffect(() => {
     const getAllOrders = async () => {
-      if (state.loggedIn.token) {
+      if (token) {
         await axios({
           method: 'get',
           url: 'http://localhost:3000/orders/',
           mode: 'no-cors',
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
-            Authorization: `Bearer ${state.loggedIn.token}`
+            Authorization: `Bearer ${token}`
           }
         })
           .then(response => {
@@ -32,7 +33,7 @@ const Orders = ({ history }) => {
     if (!state.orders) {
       getAllOrders()
     }
-  }, [dispatch, state.loggedIn.token, state.orders])
+  }, [dispatch, token, state.orders])
 
   if (!state.loggedIn) {
     history.push('/sign-in/')

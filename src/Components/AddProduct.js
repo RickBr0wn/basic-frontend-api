@@ -3,6 +3,7 @@ import axios from 'axios'
 import { StoreContext } from '../Config/Store'
 import { Button } from 'simple-react-toolkit'
 import { StyledContainer, StyledTextInput } from '../StyledComponents'
+import ImageUploader from './ImageUploader'
 
 /**
  @route   POST /products/
@@ -24,15 +25,17 @@ const AddProduct = () => {
       url: 'http://localhost:3000/products/',
       mode: 'no-cors',
       headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
+        'Content-Type': 'application/json',
         Authorization: `Bearer ${state.loggedIn.token}`
       },
       data: newProduct
     }
+
     console.log(obj)
+
     await axios(obj)
       .then(response => console.log(response))
-      .catch(error => console.log('the', error))
+      .catch(error => console.log('***', error))
   }
 
   return (
@@ -41,7 +44,11 @@ const AddProduct = () => {
       <form
         onSubmit={e => {
           e.preventDefault()
-          addNewProduct({ name, price })
+          addNewProduct({
+            name,
+            price: parseInt(price, 10),
+            productImage: null
+          })
         }}>
         <StyledTextInput
           inputColor={'#4186F4'}
@@ -59,6 +66,7 @@ const AddProduct = () => {
           value={price}
           required
         />
+        <ImageUploader />
         <Button type='submit'>Submit</Button>
       </form>
     </StyledContainer>

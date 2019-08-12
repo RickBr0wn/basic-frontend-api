@@ -14,13 +14,16 @@ const Navbar = () => {
         <li>
           <Link to='/'>Home</Link>
         </li>
+        <li>
+          <Link to='/products/'>Products</Link>
+        </li>
         {state.loggedIn.token ? (
           <>
             <li>
-              <Link to='/orders/'>Orders</Link>
+              <Link to='/add-product/'>Product Entry</Link>
             </li>
             <li>
-              <Link to='/add-product/'>Add New Product</Link>
+              <Link to='/orders/'>Basket</Link>
             </li>
           </>
         ) : (
@@ -28,9 +31,6 @@ const Navbar = () => {
             <Link to='/sign-in/'>Sign In</Link>
           </li>
         )}
-        <li>
-          <Link to='/products/'>Products</Link>
-        </li>
       </ul>
     </StyledNavbar>
   )

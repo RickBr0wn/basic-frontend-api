@@ -1,5 +1,10 @@
 import React, { createContext, useReducer, useEffect } from 'react'
-import { GET_PRODUCTS, SIGN_IN, GET_ALL_ORDERS } from '../Config/Constants'
+import {
+  GET_PRODUCTS,
+  SIGN_IN,
+  GET_ALL_ORDERS,
+  SAVE_TOKEN
+} from '../Config/Constants'
 import axios from 'axios'
 
 export const StoreContext = createContext({})
@@ -19,6 +24,9 @@ const reducer = (state, { type, payload }) => {
       return Object.assign({}, state, { orders: payload })
     case SIGN_IN:
       return Object.assign({}, state, { loggedIn: payload })
+    case SAVE_TOKEN:
+      const loggedIn = { message: 'Logged in via localstorage', token: payload }
+      return Object.assign({}, state, { loggedIn })
     default:
       throw new Error('Action type must be defined')
   }
@@ -26,6 +34,7 @@ const reducer = (state, { type, payload }) => {
 
 const Store = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState)
+  const localStorageToken = localStorage.getItem('token') || ''
 
   useEffect(() => {
     const getAllProducts = async () => {
@@ -34,11 +43,16 @@ const Store = ({ children }) => {
         .then(response =>
           dispatch({ type: GET_PRODUCTS, payload: response.data })
         )
-
         .catch(error => console.log('Error fetching all_products'))
     }
     getAllProducts()
   }, [])
+
+  useEffect(() => {
+    console.log('localstorage: ', localStorageToken)
+    localStorageToken &&
+      dispatch({ type: SAVE_TOKEN, payload: localStorageToken })
+  }, [localStorageToken])
 
   const submitLogin = (history, { email, password }) => {
     const logIn = async () => {
